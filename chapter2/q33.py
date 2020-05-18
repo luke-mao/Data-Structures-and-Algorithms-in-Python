@@ -6,6 +6,15 @@ Method: design a class, accept a string of polynomial as input, then calculate t
 """
 
 class Polynomial:
+    """
+    Polynomial class:
+    function: 
+        __init__(self, s):              take a string and decompose into a polynomial,
+        _prepare_print(self, dic=None): prepare the printing, either print itself, or the external dic,
+        get_print(self, dic=None):      print itself or a dic,
+        __str__(self):                  print itself using print(str(xx)),
+        first_order_derivative(self):   print the first order derivative 
+    """
     def __init__(self, s):
         """
         accept a string of polynomial, and translate into dictionary.
@@ -24,8 +33,11 @@ class Polynomial:
 
         i = 0
         while i < len(s):
+            
+            if s[i].isspace():
+                pass
 
-            if s[i] == '+' or s[i] == '-':  # meet the sign
+            elif s[i] == '+' or s[i] == '-':  # meet the sign
                 if i == 0:  # if this is at the start of the polynomial
                     coef = s[i]
                 
@@ -72,7 +84,7 @@ class Polynomial:
         self._dic[int(power)] = float(coef)         # finish the last part
     
 
-    def get_print(self, dic=None):
+    def _prepare_print(self, dic=None):
         """
         this function is for debug only, print out the current polynomial stored in this variable.
         by default, print the polynomial stored inside the dic,
@@ -122,7 +134,18 @@ class Polynomial:
                     else:
                         output += "*x^{} ".format(power)
 
-        print(output)
+        return output
+    
+
+    def get_print(self, dic=None):
+        if dic is None:
+            print(self._prepare_print())
+        else:
+            print(self._prepare_print(dic))
+    
+
+    def __str__(self):
+        return self._prepare_print()
 
 
     def first_order_derivative(self):
@@ -168,7 +191,8 @@ def test_polynomial_first_order_derivative():
         "5*x^3-2x-8",
         "0.99996*x^4-x^3-109x-5",
         "0.2*x^5-5x",
-        "0.2*x^5+0.25*x^4+x^3+0.5*x^2+x"
+        "0.2*x^5+0.25*x^4+x^3+0.5*x^2+x",
+        "9*x^18 + 5*x"
     ]
     poly_class = []
 
