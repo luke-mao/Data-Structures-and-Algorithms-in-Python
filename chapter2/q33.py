@@ -80,16 +80,47 @@ class Polynomial:
         """
         if dic is None: dic = self._dic
 
+        # the following part will also examine whether the output is empty or not
         output = ""
-        for power, coef in dic.items():
-            if coef < 0 and output == "":       output += "{}".format(coef)
-            elif coef < 0  and output != "":    output += "- {}".format(-coef)      # to get a better presentation
-            elif coef >= 0 and output == "":    output += "{}".format(coef)         # start of the print, do not print + sign
-            else:                               output += "+ {}".format(coef)
 
-            if power == 0:      continue
-            elif power == 1:    output += "*x "
-            else:               output += "*x^{} ".format(power)
+        # sort power in descending order
+        for power in sorted(dic, reverse=True):
+            coef = dic[power]
+
+            # coefficient
+            if power == 0:
+                if output == "":    output += "{}".format(coef)
+                else:
+                    if coef >= 0:   output += "+ {}".format(coef)
+                    else:           output += "- {}".format(-coef)
+
+            else:
+                if coef < 0:
+                    if output == "":
+                        if coef == -1.0: output += "-"
+                        else:            output += "{}".format(coef)
+                    else:
+                        if coef == -1.0: output += "- "
+                        else:            output += "- {}".format(-coef)
+                elif coef > 0:
+                    if output == "":
+                        if coef == 1.0:  pass
+                        else:            output += "{}".format(coef)
+                    else:
+                        if coef == 1.0:  output += "+ "
+                        else:            output += "+ {}".format(coef)
+
+                # power
+                if power == 1:
+                    if output == "" or (not output[-1].isdigit()):    
+                        output += "x "      # for case + x, - x, or polynomial simply start with x
+                    else:                            
+                        output += "*x "
+                else:
+                    if coef == 1.0 or coef == -1.0:
+                        output += "x^{} ".format(power)
+                    else:
+                        output += "*x^{} ".format(power)
 
         print(output)
 
@@ -112,11 +143,7 @@ class Polynomial:
         return self.get_print(derivative)
 
 
-
-
-
-
-def test_polynomial_get_component():
+def test_polynomial_get_print():
 
     poly_list = [
         "x+5", 
@@ -136,9 +163,12 @@ def test_polynomial_first_order_derivative():
     
     poly_list = [
         "x+5", 
+        "0.5*x^2+7",
         "2x-10",
         "5*x^3-2x-8",
-        "0.99996*x^4-x^3-109x-5"
+        "0.99996*x^4-x^3-109x-5",
+        "0.2*x^5-5x",
+        "0.2*x^5+0.25*x^4+x^3+0.5*x^2+x"
     ]
     poly_class = []
 
