@@ -79,8 +79,11 @@ class ArrayQueue:
 
     
     def show(self):
-        string = " <= ".join(str(self._data[i % self._capacity]) for i in range(self._front, self._front+self._num, 1))
-        print(string)
+        if self.is_empty():
+            print("Empty queue")
+        else:
+            string = " <= ".join(str(self._data[i % self._capacity]) for i in range(self._front, self._front+self._num, 1))
+            print(string)
 
 
 if __name__ == '__main__':

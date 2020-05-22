@@ -36,6 +36,14 @@ class ArrayStack:
             raise Empty("stack is empty")
         else:
             return self._data.pop()
+    
+    def show(self):
+        """show the array"""
+        if self.is_empty():
+            print("Empty stack")
+        else:
+            print("bottom=>top")
+            print(" => ".join(str(i) for i in self._data))
 
 
 if __name__ == '__main__':
