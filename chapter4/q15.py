@@ -17,7 +17,7 @@ def subset(data):
     else:
         subsets_of_remaining  = subset(data[:-1])
 
-        return sorted(subsets_of_remaining + [[data[-1]]+each for each in subsets_of_remaining])
+        return sorted(subsets_of_remaining + [[data[-1]]+ each for each in subsets_of_remaining])
 
 
 if __name__ == '__main__':
