@@ -3,6 +3,10 @@ textbook example: double ended queue.
 use cyclic array structure, change size if necessary.
 """
 
+class Empty(Exception):
+    pass
+
+
 class ArrayDoubleEndedQueue:
     """double-ended-queue, both ends can add or delete"""
     DEFAULT_CAPACITY = 10
@@ -55,6 +59,8 @@ class ArrayDoubleEndedQueue:
 
 
     def delete_first(self):
+        if self._num == 0:
+            raise Empty("double-ended-queue is already empty")
 
         value = self._data[self._front] # after potential resizing, return this value
 
@@ -70,6 +76,13 @@ class ArrayDoubleEndedQueue:
 
     def delete_last(self):
         # delete the last value
+
+        if self._num == 0:
+            raise Empty("double-ended-queue is already empty")
+
+        if self._num == 0:
+            raise Empty("double-ended-queue is already empty")
+        
         value = self._data[(self._front + self._num - 1) % self._capacity] # after potential resizing, return this value
 
         self._data[(self._front + self._num - 1) % self._capacity] = None
@@ -82,9 +95,13 @@ class ArrayDoubleEndedQueue:
 
 
     def first(self):
+        if self._num == 0:
+            raise Empty("double-ended-queue is already empty")
         return self._data[self._front]
 
     def last(self):
+        if self._num == 0:
+            raise Empty("double-ended-queue is already empty")        
         # !!! minus 1
         return self._data[(self._front + self._num - 1) % self._capacity]
 
