@@ -79,9 +79,6 @@ class ArrayDoubleEndedQueue:
 
         if self._num == 0:
             raise Empty("double-ended-queue is already empty")
-
-        if self._num == 0:
-            raise Empty("double-ended-queue is already empty")
         
         value = self._data[(self._front + self._num - 1) % self._capacity] # after potential resizing, return this value
 
